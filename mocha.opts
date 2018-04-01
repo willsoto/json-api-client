@@ -1,0 +1,3 @@
+--require ts-node/register
+--require spec/setup.js
+spec/**/*.spec.ts
