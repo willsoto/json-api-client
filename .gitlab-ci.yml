@@ -1,0 +1,22 @@
+image: node:9
+
+before_script:
+  - yarn install --frozen-lockfile
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - yarn build:dist
+
+test:
+  stage: test
+  script:
+    - yarn test
