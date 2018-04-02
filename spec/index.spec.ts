@@ -1,8 +1,8 @@
 import { expect } from "chai";
-import "isomorphic-fetch";
 import * as fetchMock from "fetch-mock";
 
-import { JSONApiClient, DenmoralizedResponseObject } from "../src";
+import { JSONApiClient } from "../src";
+import { DenmoralizedResponseObject } from "../src/interfaces";
 
 import { Article, Author, Comment } from "./fixtures";
 
@@ -69,6 +69,46 @@ describe("JSONApiClient", function() {
 
       article.comments.forEach((comment) => {
         expect(comment).to.be.instanceof(Comment);
+      });
+    });
+  });
+
+  describe("#marshal", function() {
+    it("correctly denormalizes responses with attributes", function() {
+      expect(
+        client.marshal({
+          id: "1",
+          type: "books",
+          attributes: {
+            title: "Ulysses"
+          }
+        })
+      ).to.eql({
+        id: "1",
+        title: "Ulysses"
+      });
+    });
+
+    it("correctly denormalizes responses with empty attributes", function() {
+      expect(
+        client.marshal({
+          id: "1",
+          type: "books",
+          attributes: {}
+        })
+      ).to.eql({
+        id: "1"
+      });
+    });
+
+    it("correctly denormalizes responses without attributes", function() {
+      expect(
+        client.marshal({
+          id: "1",
+          type: "books"
+        })
+      ).to.eql({
+        id: "1"
       });
     });
   });
