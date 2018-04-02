@@ -1,35 +1,28 @@
 import * as JSONAPI from "jsonapi-typescript";
+import {
+  Options,
+  Creator,
+  DenmoralizedResponse,
+  DenmoralizedResponseObject
+} from "./interfaces";
 
 import { JSONApiModel } from "./model";
 
-export interface Options {
-  baseURL?: string;
-  basePath: string;
-}
-
-export interface DenmoralizedResponseObject {
-  id: string | number;
-  [key: string]: any;
-}
-
-export type DenmoralizedResponse =
-  | DenmoralizedResponseObject
-  | DenmoralizedResponseObject[];
-
 export class JSONApiClient {
   private endpoint: string = "/";
-  private __subclasses__: {
-    [name: string]: typeof JSONApiModel;
-  } = {};
+  private __subclasses__ = new Map<string, Function>();
 
   constructor(private options: Options) {}
 
-  register<T extends JSONApiModel>(model: typeof JSONApiModel): JSONApiClient {
-    this.__subclasses__[model.__type] = model;
+  register<T extends JSONApiModel>(
+    type: string,
+    cb: (...args: any[]) => any
+  ): JSONApiClient {
+    this.__subclasses__.set(type, cb);
     return this;
   }
 
-  query<T extends JSONApiModel>(model: typeof JSONApiModel): JSONApiClient {
+  query(model: typeof JSONApiModel): JSONApiClient {
     this.endpoint = model.__endpoint;
     return this;
   }
@@ -129,7 +122,7 @@ export class JSONApiClient {
 
   marshal(
     entity: JSONAPI.ResourceObject | JSONAPI.ResourceIdentifierObject
-  ): any {
+  ): DenmoralizedResponseObject | typeof JSONApiModel {
     const { type } = entity;
 
     let attributes: JSONAPI.AttributesObject = {};
@@ -138,10 +131,13 @@ export class JSONApiClient {
       attributes = entity.attributes;
     }
 
-    if (type in this.__subclasses__) {
-      const Model: any = this.__subclasses__[entity.type];
+    if (this.__subclasses__.has(entity.type)) {
+      // https://github.com/Microsoft/TypeScript/issues/9619
+      // This default value shouldn't be needed due to the `has` check on L130
+      // But TS's signature for `get` is V | undefined
+      const cb = this.__subclasses__.get(entity.type) || function() {};
 
-      return new Model({
+      return cb({
         id: entity.id,
         ...attributes
       });

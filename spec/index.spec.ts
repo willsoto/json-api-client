@@ -22,9 +22,15 @@ describe("JSONApiClient", function() {
     });
 
     client
-      .register(Author)
-      .register(Article)
-      .register(Comment);
+      .register(Author.__type, function(...args: any[]) {
+        return new Author(...args);
+      })
+      .register(Article.__type, function(...args: any[]) {
+        return new Article(...args);
+      })
+      .register(Comment.__type, function(...args: any[]) {
+        return new Comment(...args);
+      });
   });
 
   it("works", async function() {
