@@ -1,6 +1,7 @@
 export interface Options {
   baseURL?: string;
   basePath: string;
+  fetchOptions?: RequestInit;
 }
 
 export interface DenmoralizedResponseObject {
@@ -12,6 +13,9 @@ export type DenmoralizedResponse =
   | DenmoralizedResponseObject
   | DenmoralizedResponseObject[];
 
-export interface Creator<T> {
-  new (...args: any[]): T;
+export interface CallbackArgs {
+  type: string;
+  data: DenmoralizedResponse;
 }
+
+export type ID = string | number;
