@@ -6,11 +6,9 @@
   "license": "Apache-2.0",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc --project ./tsconfig.json",
-    "prebuild:dist": "rimraf dist",
-    "build:dist": "rollup -c",
-    "test": "yarn run build && mocha --opts mocha.opts",
-    "test:debug": "yarn run build && mocha --inspect-brk --opts mocha.opts"
+    "build": "rollup -c",
+    "test": "mocha --opts mocha.opts",
+    "test:debug": "mocha --inspect-brk --opts mocha.opts"
   },
   "devDependencies": {
     "@types/chai": "^4.1.2",

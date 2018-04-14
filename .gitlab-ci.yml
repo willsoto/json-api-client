@@ -14,7 +14,7 @@ stages:
 build:
   stage: build
   script:
-    - yarn build:dist
+    - yarn build
 
 test:
   stage: test
