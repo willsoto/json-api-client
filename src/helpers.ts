@@ -40,59 +40,71 @@ export const processEntity = function(
   }
 
   const { id, type } = entity;
-  const model: any = marshal(entity);
 
-  let relationships: JSONAPI.RelationshipsObject = {};
+  let obj = marshal(entity);
 
-  if ('relationships' in entity && entity.relationships !== undefined) {
-    relationships = entity.relationships;
+  if (
+    'relationships' in entity &&
+    entity.relationships !== undefined &&
+    included !== undefined
+  ) {
+    obj = processRelationships(obj, entity.relationships, included);
   }
 
-  if (included !== undefined) {
-    processRelationships(model, relationships, included);
-  }
-
-  return model;
+  return obj;
 };
 
 export const processRelationships = function(
-  model: any,
+  obj: any,
   relationships: JSONAPI.RelationshipsObject,
   included: JSONAPI.Included
-) {
+): DenmoralizedResponse {
   for (let relationshipName in relationships) {
     const relationship = relationships[relationshipName];
 
-    if (!('data' in relationship)) {
+    if (!('data' in relationship) || !relationship.data) {
       continue;
     }
 
     const { data } = relationship;
 
     if (Array.isArray(data)) {
-      model[relationshipName] = (data as any).map((relation: any) => {
-        const entity = included.find((inc) => {
-          return relation.id === inc.id && relation.type === inc.type;
-        });
-
-        if (entity === undefined) {
-          return {};
+      obj[relationshipName] = (data as JSONAPI.ResourceIdentifierObject[]).map(
+        (relation) => {
+          return createRelationship(relation, included);
         }
-
-        return marshal(entity);
-      });
-    } else if (data !== null) {
-      const entity = included.find((inc) => {
-        return data.id === inc.id && data.type === inc.type;
-      });
-
-      if (entity === undefined) {
-        return {};
-      }
-
-      model[relationshipName] = marshal(entity);
+      );
+    } else {
+      obj[relationshipName] = createRelationship(data, included);
     }
   }
+
+  return obj;
+};
+
+const createRelationship = function(
+  data: JSONAPI.ResourceIdentifierObject,
+  included: JSONAPI.Included
+) {
+  const includedEntity = included.find((inc: JSONAPI.ResourceObject) => {
+    return data.id === inc.id && data.type === inc.type;
+  });
+
+  if (includedEntity === undefined) {
+    return {};
+  }
+
+  let entity = marshal(includedEntity);
+
+  if (includedEntity.relationships) {
+    entity = processRelationships(
+      entity,
+      includedEntity.relationships,
+      included
+    );
+  }
+
+  return entity;
 };
 
 export const marshal = function(

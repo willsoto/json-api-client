@@ -1,10 +1,11 @@
+import { describe } from 'mocha';
 import { expect } from 'chai';
 import * as moxios from 'moxios';
 
 import { JSONApiClient } from '../src';
 import { DenmoralizedResponseObject } from '../src/interfaces';
 
-import { Article, Author, Comment } from './fixtures';
+import { Article, Author, Comment } from './models';
 
 function respondWith(response) {
   return new Promise((resolve, reject) => {
@@ -72,11 +73,18 @@ describe('JSONApiClient', function() {
         comments: [
           {
             id: '5',
-            body: 'First!'
+            body: 'First!',
+            author: {}
           },
           {
             id: '12',
-            body: 'I like XML better'
+            body: 'I like XML better',
+            author: {
+              id: '9',
+              'first-name': 'Dan',
+              'last-name': 'Gebhardt',
+              twitter: 'dgeb'
+            }
           }
         ]
       }
