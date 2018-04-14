@@ -1,13 +1,13 @@
-import * as JSONAPI from "jsonapi-typescript";
+import * as JSONAPI from 'jsonapi-typescript';
 
-import { Options, CallbackArgs, ID } from "./interfaces";
-import * as helpers from "./helpers";
-import { JSONApiModel } from "./model";
-import axios from "axios";
-import * as axiosTypes from "axios";
+import { Options, CallbackArgs, ID } from './interfaces';
+import * as helpers from './helpers';
+import { JSONApiModel } from './model';
+import axios from 'axios';
+import * as axiosTypes from 'axios';
 
 export class JSONApiClient {
-  private endpoint: string = "/";
+  private endpoint: string = '/';
   public axios: axiosTypes.AxiosInstance;
 
   constructor(private options: Options) {
@@ -15,7 +15,7 @@ export class JSONApiClient {
       {},
       {
         headers: {
-          "content-type": "application/vnd.api+json"
+          'content-type': 'application/vnd.api+json'
         }
       },
       this.options.axiosOptions

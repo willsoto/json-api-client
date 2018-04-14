@@ -1,12 +1,12 @@
-import * as JSONAPI from "jsonapi-typescript";
+import * as JSONAPI from 'jsonapi-typescript';
 
 import {
   Options,
   DenmoralizedResponse,
   DenmoralizedResponseObject
-} from "./interfaces";
+} from './interfaces';
 
-import { JSONApiModel } from "./model";
+import { JSONApiModel } from './model';
 
 const subclasses = new Map<string, Function>();
 
@@ -35,7 +35,7 @@ export const processEntity = function(
   entity: JSONAPI.SinglePrimaryData,
   included: JSONAPI.Included | undefined
 ): any {
-  if (entity === null || !("type" in entity)) {
+  if (entity === null || !('type' in entity)) {
     return;
   }
 
@@ -44,7 +44,7 @@ export const processEntity = function(
 
   let relationships: JSONAPI.RelationshipsObject = {};
 
-  if ("relationships" in entity && entity.relationships !== undefined) {
+  if ('relationships' in entity && entity.relationships !== undefined) {
     relationships = entity.relationships;
   }
 
@@ -63,7 +63,7 @@ export const processRelationships = function(
   for (let relationshipName in relationships) {
     const relationship = relationships[relationshipName];
 
-    if (!("data" in relationship)) {
+    if (!('data' in relationship)) {
       continue;
     }
 
@@ -102,7 +102,7 @@ export const marshal = function(
 
   let attributes: JSONAPI.AttributesObject = {};
 
-  if ("attributes" in entity && entity.attributes !== undefined) {
+  if ('attributes' in entity && entity.attributes !== undefined) {
     attributes = entity.attributes;
   }
 

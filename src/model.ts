@@ -1,4 +1,4 @@
-import { CallbackArgs } from "./interfaces";
+import { CallbackArgs } from './interfaces';
 
 export abstract class JSONApiModel {
   static __type: string;

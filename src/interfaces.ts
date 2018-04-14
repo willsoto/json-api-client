@@ -1,4 +1,4 @@
-import * as axiosTypes from "axios";
+import * as axiosTypes from 'axios';
 
 export interface Options {
   axiosOptions?: axiosTypes.AxiosRequestConfig;

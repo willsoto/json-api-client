@@ -1,10 +1,10 @@
-import { expect } from "chai";
-import * as moxios from "moxios";
+import { expect } from 'chai';
+import * as moxios from 'moxios';
 
-import { JSONApiClient } from "../src";
-import { DenmoralizedResponseObject } from "../src/interfaces";
+import { JSONApiClient } from '../src';
+import { DenmoralizedResponseObject } from '../src/interfaces';
 
-import { Article, Author, Comment } from "./fixtures";
+import { Article, Author, Comment } from './fixtures';
 
 function respondWith(response) {
   return new Promise((resolve, reject) => {
@@ -20,13 +20,13 @@ function respondWith(response) {
   });
 }
 
-describe("JSONApiClient", function() {
+describe('JSONApiClient', function() {
   let client: JSONApiClient;
 
   beforeEach(function() {
     client = new JSONApiClient({
       axiosOptions: {
-        baseURL: "/api"
+        baseURL: '/api'
       }
     });
 
@@ -43,9 +43,9 @@ describe("JSONApiClient", function() {
 
     moxios.install(client.axios);
 
-    moxios.stubRequest("/api/articles", {
+    moxios.stubRequest('/api/articles', {
       status: 200,
-      response: require("./payloads/articles.json")
+      response: require('./payloads/articles.json')
     });
   });
 
@@ -53,40 +53,40 @@ describe("JSONApiClient", function() {
     moxios.uninstall(client.axios);
   });
 
-  it("works", async function() {
+  it('works', async function() {
     const response = await client.query(Article).all();
     const cloned = JSON.parse(JSON.stringify(response.data));
 
-    await respondWith(require("./payloads/articles.json"));
+    await respondWith(require('./payloads/articles.json'));
 
     expect(cloned).to.eql([
       {
-        id: "1",
-        title: "JSON API paints my bikeshed!",
+        id: '1',
+        title: 'JSON API paints my bikeshed!',
         author: {
-          id: "9",
-          "first-name": "Dan",
-          "last-name": "Gebhardt",
-          twitter: "dgeb"
+          id: '9',
+          'first-name': 'Dan',
+          'last-name': 'Gebhardt',
+          twitter: 'dgeb'
         },
         comments: [
           {
-            id: "5",
-            body: "First!"
+            id: '5',
+            body: 'First!'
           },
           {
-            id: "12",
-            body: "I like XML better"
+            id: '12',
+            body: 'I like XML better'
           }
         ]
       }
     ]);
   });
 
-  it("correctly assigns classes if they are present", async function() {
+  it('correctly assigns classes if they are present', async function() {
     const response = await client.query(Article).all();
 
-    await respondWith(require("./payloads/articles.json"));
+    await respondWith(require('./payloads/articles.json'));
 
     (response.data as DenmoralizedResponseObject[]).forEach((article) => {
       expect(article).to.be.instanceof(Article);
