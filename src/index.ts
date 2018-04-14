@@ -74,7 +74,7 @@ export class JSONApiClient {
   ): Promise<axiosTypes.AxiosResponse> {
     const url: string = `${this.endpoint}/${id}`;
 
-    return this.axios.put(url, payload, axiosOptions);
+    return this.axios.patch(url, payload, axiosOptions);
   }
 
   delete(
