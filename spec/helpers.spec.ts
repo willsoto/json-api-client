@@ -25,49 +25,49 @@ describe('helpers', function() {
 
   describe('.processEntity', function() {
     it('converts a single JSON API item', function() {
-      expect(
-        helpers.processEntity(
-          {
-            id: '1',
-            type: 'authors',
-            attributes: {}
-          },
-          []
-        )
-      ).to.eql({
-        id: '1'
-      });
+      const payload = require('./payloads/authors-1.json');
+      const result = helpers.processEntity(payload.data, []);
+
+      const expected = {
+        id: '1',
+        books: [{}],
+        date_of_birth: '1977-08-21',
+        date_of_death: '2009-09-14',
+        name: 'Madge Mohr DVM 2',
+        photos: []
+      };
+
+      expect(result).to.eql(expected);
     });
 
     it('converts a single JSON API item with relationships', function() {
-      expect(
-        helpers.processEntity(
-          {
-            id: '1',
-            type: 'authors',
-            attributes: {},
-            relationships: {
-              articles: {
-                data: [
-                  {
-                    type: 'articles',
-                    id: '2'
-                  }
-                ]
+      const entity = {
+        id: '1',
+        type: 'authors',
+        attributes: {},
+        relationships: {
+          articles: {
+            data: [
+              {
+                type: 'articles',
+                id: '2'
               }
-            }
-          },
-          [
-            {
-              type: 'articles',
-              id: '2',
-              attributes: {
-                title: 'Check this out'
-              }
-            }
-          ]
-        )
-      ).to.eql({
+            ]
+          }
+        }
+      };
+      const included = [
+        {
+          type: 'articles',
+          id: '2',
+          attributes: {
+            title: 'Check this out'
+          }
+        }
+      ];
+      const result = helpers.processEntity(entity, included);
+
+      const expected = {
         id: '1',
         articles: [
           {
@@ -75,57 +75,58 @@ describe('helpers', function() {
             title: 'Check this out'
           }
         ]
-      });
+      };
+
+      expect(result).to.eql(expected);
     });
 
     it('recurses through relationships if they are present', function() {
-      expect(
-        helpers.processEntity(
-          {
-            id: '1',
-            type: 'authors',
-            attributes: {
-              name: 'James Joyce'
-            },
-            relationships: {
-              articles: {
-                data: [
-                  {
-                    type: 'articles',
-                    id: '2'
-                  }
-                ]
+      const entity = {
+        id: '1',
+        type: 'authors',
+        attributes: {
+          name: 'James Joyce'
+        },
+        relationships: {
+          articles: {
+            data: [
+              {
+                type: 'articles',
+                id: '2'
               }
-            }
+            ]
+          }
+        }
+      };
+      const included = [
+        {
+          type: 'articles',
+          id: '2',
+          attributes: {
+            title: 'Check this out'
           },
-          [
-            {
-              type: 'articles',
-              id: '2',
-              attributes: {
-                title: 'Check this out'
-              },
-              relationships: {
-                comments: {
-                  data: [
-                    {
-                      type: 'comments',
-                      id: '3'
-                    }
-                  ]
+          relationships: {
+            comments: {
+              data: [
+                {
+                  type: 'comments',
+                  id: '3'
                 }
-              }
-            },
-            {
-              type: 'comments',
-              id: '3',
-              attributes: {
-                text: 'best article ever'
-              }
+              ]
             }
-          ]
-        )
-      ).to.eql({
+          }
+        },
+        {
+          type: 'comments',
+          id: '3',
+          attributes: {
+            text: 'best article ever'
+          }
+        }
+      ];
+      const result = helpers.processEntity(entity, included);
+
+      const expected = {
         id: '1',
         name: 'James Joyce',
         articles: [
@@ -140,7 +141,9 @@ describe('helpers', function() {
             ]
           }
         ]
-      });
+      };
+
+      expect(result).to.eql(expected);
     });
   });
 
@@ -271,36 +274,37 @@ describe('helpers', function() {
           title: 'Ulysses'
         }
       };
-
-      const result = {
+      const expected = {
         id: '1',
         title: 'Ulysses'
       };
 
-      expect(helpers.marshal(entity)).to.eql(result);
+      expect(helpers.marshal(entity)).to.eql(expected);
     });
 
     it('correctly denormalizes responses with empty attributes', function() {
-      expect(
-        helpers.marshal({
-          id: '1',
-          type: 'books',
-          attributes: {}
-        })
-      ).to.eql({
-        id: '1'
+      const result = helpers.marshal({
+        id: '1',
+        type: 'books',
+        attributes: {}
       });
+      const expected = {
+        id: '1'
+      };
+
+      expect(result).to.eql(expected);
     });
 
     it('correctly denormalizes responses without attributes', function() {
-      expect(
-        helpers.marshal({
-          id: '1',
-          type: 'books'
-        })
-      ).to.eql({
-        id: '1'
+      const result = helpers.marshal({
+        id: '1',
+        type: 'books'
       });
+      const expected = {
+        id: '1'
+      };
+
+      expect(result).to.eql(expected);
     });
   });
 });
