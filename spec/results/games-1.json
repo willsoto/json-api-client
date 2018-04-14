@@ -1,0 +1,46 @@
+{
+  "id": "1",
+  "difficulty": "beginner",
+  "engineers": [
+    {
+      "id": "cd1e86b2-3773-458f-a9ed-b617030abb1f",
+      "name": "Travis"
+    }
+  ],
+  "levels": [
+    {
+      "id": "1",
+      "tags": [
+        {
+          "id": "6891b30f-ae79-4f2e-8069-2822c22962ca",
+          "name": "Foo1"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "tags": [
+        {
+          "id": "4f8d4721-2814-49f2-ba2d-617455a39598",
+          "name": "Foo2"
+        },
+        {
+          "id": "fad8bfe9-3387-49ac-a57b-a14272be8401",
+          "name": "Foo3"
+        },
+        {
+          "id": "fa05d26b-ca94-40b2-92ea-ce34960e8478",
+          "name": "Foo4"
+        },
+        {
+          "id": "94fb6ea0-7629-4768-926e-3ef27e736497",
+          "name": "Foo5"
+        },
+        {
+          "id": "6891b30f-ae79-4f2e-8069-2822c22962ca",
+          "name": "Foo1"
+        }
+      ]
+    }
+  ]
+}

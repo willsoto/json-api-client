@@ -1,0 +1,97 @@
+{
+  "data": {
+    "id": "1",
+    "type": "games",
+    "attributes": {
+      "difficulty": "beginner"
+    },
+    "relationships": {
+      "engineers": {
+        "data": [
+          { "type": "engineers", "id": "cd1e86b2-3773-458f-a9ed-b617030abb1f" }
+        ]
+      },
+      "levels": {
+        "data": [
+          { "type": "levels", "id": "1" },
+          { "type": "levels", "id": "2" }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "cd1e86b2-3773-458f-a9ed-b617030abb1f",
+      "type": "engineers",
+      "attributes": {
+        "name": "Travis"
+      },
+      "relationships": { "games": { "meta": { "included": false } } }
+    },
+    {
+      "id": "1",
+      "type": "levels",
+      "attributes": {},
+      "relationships": {
+        "tags": {
+          "data": [
+            { "type": "tags", "id": "6891b30f-ae79-4f2e-8069-2822c22962ca" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "2",
+      "type": "levels",
+      "attributes": {},
+      "relationships": {
+        "tags": {
+          "data": [
+            { "type": "tags", "id": "4f8d4721-2814-49f2-ba2d-617455a39598" },
+            { "type": "tags", "id": "fad8bfe9-3387-49ac-a57b-a14272be8401" },
+            { "type": "tags", "id": "fa05d26b-ca94-40b2-92ea-ce34960e8478" },
+            { "type": "tags", "id": "94fb6ea0-7629-4768-926e-3ef27e736497" },
+            { "type": "tags", "id": "6891b30f-ae79-4f2e-8069-2822c22962ca" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "6891b30f-ae79-4f2e-8069-2822c22962ca",
+      "type": "tags",
+      "attributes": { "name": "Foo1" }
+    },
+    {
+      "id": "4f8d4721-2814-49f2-ba2d-617455a39598",
+      "type": "tags",
+      "attributes": { "name": "Foo2" }
+    },
+    {
+      "id": "fad8bfe9-3387-49ac-a57b-a14272be8401",
+      "type": "tags",
+      "attributes": { "name": "Foo3" }
+    },
+    {
+      "id": "fa05d26b-ca94-40b2-92ea-ce34960e8478",
+      "type": "tags",
+      "attributes": { "name": "Foo4" }
+    },
+    {
+      "id": "94fb6ea0-7629-4768-926e-3ef27e736497",
+      "type": "tags",
+      "attributes": { "name": "Foo5" }
+    },
+    {
+      "id": "9daa8b35-1188-46ee-aa56-75f09091ad27",
+      "type": "tags",
+      "attributes": { "name": "Foo6" }
+    },
+    {
+      "id": "faee4c16-3951-4262-8015-0cb78cfa5324",
+      "type": "tags",
+      "attributes": { "name": "Foo7" }
+    }
+  ],
+  "meta": {},
+  "jsonapi": { "version": "1.0" }
+}

@@ -1,0 +1,181 @@
+{
+  "data": [
+    {
+      "type": "authors",
+      "id": "1",
+      "attributes": {
+        "name": "Madge Mohr DVM 2",
+        "date_of_birth": "1977-08-21",
+        "date_of_death": "2009-09-14"
+      },
+      "relationships": {
+        "photos": {
+          "data": []
+        },
+        "books": {
+          "data": [
+            {
+              "type": "books",
+              "id": "41"
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "/v2/authors/1"
+      }
+    },
+    {
+      "type": "authors",
+      "id": "3",
+      "attributes": {
+        "name": "Zelma Ortiz DDS",
+        "date_of_birth": "1992-09-06",
+        "date_of_death": "2000-12-19"
+      },
+      "relationships": {
+        "photos": {
+          "data": [
+            {
+              "type": "photos",
+              "id": "3"
+            }
+          ]
+        },
+        "books": {
+          "data": [
+            {
+              "type": "books",
+              "id": "36"
+            },
+            {
+              "type": "books",
+              "id": "48"
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "/v2/authors/3"
+      }
+    },
+    {
+      "type": "authors",
+      "id": "4",
+      "attributes": {
+        "name": "Fermin Barrows Sr.",
+        "date_of_birth": "1991-03-18",
+        "date_of_death": "1975-11-07"
+      },
+      "relationships": {
+        "photos": {
+          "data": [
+            {
+              "type": "photos",
+              "id": "4"
+            }
+          ]
+        },
+        "books": {
+          "data": [
+            {
+              "type": "books",
+              "id": "1"
+            },
+            {
+              "type": "books",
+              "id": "26"
+            },
+            {
+              "type": "books",
+              "id": "44"
+            },
+            {
+              "type": "books",
+              "id": "46"
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "/v2/authors/4"
+      }
+    },
+    {
+      "type": "authors",
+      "id": "5",
+      "attributes": {
+        "name": "Terry Durgan",
+        "date_of_birth": "2011-03-06",
+        "date_of_death": "2017-04-13"
+      },
+      "relationships": {
+        "photos": {
+          "data": [
+            {
+              "type": "photos",
+              "id": "5"
+            }
+          ]
+        },
+        "books": {
+          "data": [
+            {
+              "type": "books",
+              "id": "6"
+            },
+            {
+              "type": "books",
+              "id": "16"
+            },
+            {
+              "type": "books",
+              "id": "50"
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "/v2/authors/5"
+      }
+    },
+    {
+      "type": "authors",
+      "id": "6",
+      "attributes": {
+        "name": "Annalise Walsh",
+        "date_of_birth": "2004-11-27",
+        "date_of_death": "1997-07-20"
+      },
+      "relationships": {
+        "photos": {
+          "data": [
+            {
+              "type": "photos",
+              "id": "6"
+            }
+          ]
+        },
+        "books": {
+          "data": [
+            {
+              "type": "books",
+              "id": "4"
+            },
+            {
+              "type": "books",
+              "id": "5"
+            },
+            {
+              "type": "books",
+              "id": "21"
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "/v2/authors/6"
+      }
+    }
+  ]
+}

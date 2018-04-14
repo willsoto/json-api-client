@@ -1,0 +1,134 @@
+{
+  "data": [
+    {
+      "type": "series",
+      "id": "1",
+      "attributes": {
+        "title": "Serie 4616689"
+      },
+      "relationships": {
+        "photos": {
+          "data": [
+            {
+              "type": "photos",
+              "id": "101"
+            }
+          ]
+        },
+        "books": {
+          "data": [
+            {
+              "type": "books",
+              "id": "45"
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "/v2/series/1"
+      }
+    },
+    {
+      "type": "series",
+      "id": "2",
+      "attributes": {
+        "title": "Serie 6669937"
+      },
+      "relationships": {
+        "photos": {
+          "data": [
+            {
+              "type": "photos",
+              "id": "102"
+            }
+          ]
+        },
+        "books": {
+          "data": [
+            {
+              "type": "books",
+              "id": "43"
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "/v2/series/2"
+      }
+    },
+    {
+      "type": "series",
+      "id": "3",
+      "attributes": {
+        "title": "Serie 8090253"
+      },
+      "relationships": {
+        "photos": {
+          "data": [
+            {
+              "type": "photos",
+              "id": "103"
+            }
+          ]
+        },
+        "books": {
+          "data": [
+            {
+              "type": "books",
+              "id": "39"
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "/v2/series/3"
+      }
+    },
+    {
+      "type": "series",
+      "id": "4",
+      "attributes": {
+        "title": "Serie 6657086"
+      },
+      "relationships": {
+        "photos": {
+          "data": [
+            {
+              "type": "photos",
+              "id": "104"
+            }
+          ]
+        },
+        "books": {
+          "data": []
+        }
+      },
+      "links": {
+        "self": "/v2/series/4"
+      }
+    },
+    {
+      "type": "series",
+      "id": "5",
+      "attributes": {
+        "title": "Serie 1831420"
+      },
+      "relationships": {
+        "photos": {
+          "data": [
+            {
+              "type": "photos",
+              "id": "105"
+            }
+          ]
+        },
+        "books": {
+          "data": []
+        }
+      },
+      "links": {
+        "self": "/v2/series/5"
+      }
+    }
+  ]
+}

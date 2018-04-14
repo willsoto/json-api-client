@@ -1,0 +1,49 @@
+{
+  "data": [
+    {
+      "type": "books",
+      "id": "41",
+      "attributes": {
+        "title": "Koelpin, Franecki and McClure",
+        "date_published": "1974-07-08",
+        "isbn": null
+      },
+      "relationships": {
+        "author": {
+          "data": {
+            "type": "authors",
+            "id": "1"
+          }
+        },
+        "chapters": {
+          "data": []
+        },
+        "photos": {
+          "data": [
+            {
+              "type": "photos",
+              "id": "191"
+            }
+          ]
+        },
+        "serie": {
+          "data": {
+            "type": "series",
+            "id": "9"
+          }
+        },
+        "stores": {
+          "data": [
+            {
+              "type": "stores",
+              "id": "13"
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "/v2/books/41"
+      }
+    }
+  ]
+}

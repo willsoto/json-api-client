@@ -1,43 +1,25 @@
 import { describe } from 'mocha';
 import { expect } from 'chai';
+import * as glob from 'glob';
 
 import * as helpers from '../src/helpers';
 
 describe('helpers', function() {
   describe('.denormalize', function() {
-    it('correctly converts a JSON API response into a usable format', function() {
-      const data = require('./payloads/articles.json');
-      const result = [
-        {
-          id: '1',
-          title: 'JSON API paints my bikeshed!',
-          author: {
-            id: '9',
-            'first-name': 'Dan',
-            'last-name': 'Gebhardt',
-            twitter: 'dgeb'
-          },
-          comments: [
-            {
-              id: '5',
-              body: 'First!',
-              author: {}
-            },
-            {
-              id: '12',
-              body: 'I like XML better',
-              author: {
-                id: '9',
-                'first-name': 'Dan',
-                'last-name': 'Gebhardt',
-                twitter: 'dgeb'
-              }
-            }
-          ]
-        }
-      ];
+    const payloads = glob.sync('./payloads/*.json', {
+      cwd: __dirname
+    });
+    const results = glob.sync('./results/*.json', {
+      cwd: __dirname
+    });
 
-      expect(helpers.denormalize(data)).to.eql(result);
+    payloads.forEach(function(payload, index) {
+      it(`works with ${payload}`, function() {
+        const data = require(payload);
+        const result = require(results[index]);
+
+        expect(helpers.denormalize(data)).to.eql(result);
+      });
     });
   });
 

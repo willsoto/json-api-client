@@ -1,0 +1,27 @@
+{
+  "data": {
+    "type": "authors",
+    "id": "1",
+    "attributes": {
+      "name": "Madge Mohr DVM 2",
+      "date_of_birth": "1977-08-21",
+      "date_of_death": "2009-09-14"
+    },
+    "relationships": {
+      "photos": {
+        "data": []
+      },
+      "books": {
+        "data": [
+          {
+            "type": "books",
+            "id": "41"
+          }
+        ]
+      }
+    },
+    "links": {
+      "self": "/v2/authors/1"
+    }
+  }
+}
