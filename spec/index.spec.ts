@@ -1,24 +1,33 @@
 import { expect } from "chai";
-import * as fetchMock from "fetch-mock";
+import * as moxios from "moxios";
 
 import { JSONApiClient } from "../src";
 import { DenmoralizedResponseObject } from "../src/interfaces";
 
 import { Article, Author, Comment } from "./fixtures";
 
-fetchMock.get(
-  "http://example.com/api/articles",
-  require("./payloads/articles.json")
-);
+function respondWith(response) {
+  return new Promise((resolve, reject) => {
+    moxios.wait(() => {
+      moxios.requests
+        .mostRecent()
+        .respondWith({
+          status: 200,
+          response
+        })
+        .then(resolve, reject);
+    });
+  });
+}
 
 describe("JSONApiClient", function() {
   let client: JSONApiClient;
 
   beforeEach(function() {
-    fetchMock.reset();
-
     client = new JSONApiClient({
-      basePath: "/api"
+      axiosOptions: {
+        baseURL: "/api"
+      }
     });
 
     client
@@ -31,11 +40,24 @@ describe("JSONApiClient", function() {
       .register(Comment.__type, function(...args: any[]) {
         return new Comment(...args);
       });
+
+    moxios.install(client.axios);
+
+    moxios.stubRequest("/api/articles", {
+      status: 200,
+      response: require("./payloads/articles.json")
+    });
+  });
+
+  afterEach(function() {
+    moxios.uninstall(client.axios);
   });
 
   it("works", async function() {
     const response = await client.query(Article).all();
-    const cloned = JSON.parse(JSON.stringify(response));
+    const cloned = JSON.parse(JSON.stringify(response.data));
+
+    await respondWith(require("./payloads/articles.json"));
 
     expect(cloned).to.eql([
       {
@@ -62,9 +84,11 @@ describe("JSONApiClient", function() {
   });
 
   it("correctly assigns classes if they are present", async function() {
-    const articles = await client.query(Article).all();
+    const response = await client.query(Article).all();
 
-    (articles as DenmoralizedResponseObject[]).forEach((article) => {
+    await respondWith(require("./payloads/articles.json"));
+
+    (response.data as DenmoralizedResponseObject[]).forEach((article) => {
       expect(article).to.be.instanceof(Article);
 
       article.comments.forEach((comment) => {

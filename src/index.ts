@@ -1,22 +1,37 @@
 import * as JSONAPI from "jsonapi-typescript";
 
-import { Options, CallbackArgs, DenmoralizedResponse, ID } from "./interfaces";
+import { Options, CallbackArgs, ID } from "./interfaces";
 import * as helpers from "./helpers";
 import { JSONApiModel } from "./model";
+import axios from "axios";
+import * as axiosTypes from "axios";
 
 export class JSONApiClient {
   private endpoint: string = "/";
-  private fetchOptions: RequestInit;
+  public axios: axiosTypes.AxiosInstance;
 
   constructor(private options: Options) {
-    this.fetchOptions = Object.assign(
+    const axiosOptions = Object.assign(
       {},
       {
         headers: {
           "content-type": "application/vnd.api+json"
         }
       },
-      this.options.fetchOptions
+      this.options.axiosOptions
+    );
+
+    this.axios = axios.create(axiosOptions);
+
+    this.axios.interceptors.response.use(
+      function(response) {
+        response.data = helpers.denormalize(response.data);
+
+        return response;
+      },
+      function(error) {
+        return Promise.reject(error);
+      }
     );
   }
 
@@ -30,85 +45,44 @@ export class JSONApiClient {
     return this;
   }
 
-  get url(): string {
-    const { baseURL = location.origin, basePath } = this.options;
-
-    return baseURL + basePath + this.endpoint;
+  all(
+    axiosOptions?: axiosTypes.AxiosRequestConfig
+  ): Promise<axiosTypes.AxiosResponse> {
+    return this.axios.get(this.endpoint, axiosOptions);
   }
 
-  async all(fetchOptions?: RequestInit): Promise<DenmoralizedResponse> {
-    const options = Object.assign({}, this.fetchOptions, fetchOptions);
+  get(
+    id: ID,
+    axiosOptions?: axiosTypes.AxiosRequestConfig
+  ): Promise<axiosTypes.AxiosResponse> {
+    const url = `${this.endpoint}/${id}`;
 
-    try {
-      return helpers.makeRequest(this.url, options);
-    } catch (e) {
-      throw e;
-    }
+    return this.axios.get(url, axiosOptions);
   }
 
-  async get(id: ID, fetchOptions?: RequestInit): Promise<DenmoralizedResponse> {
-    const options = Object.assign({}, this.fetchOptions, fetchOptions);
-
-    try {
-      const url = `${this.url}/${id}`;
-
-      return helpers.makeRequest(url, options);
-    } catch (e) {
-      throw e;
-    }
-  }
-
-  async create(
+  create(
     payload: any,
-    fetchOptions?: RequestInit
-  ): Promise<DenmoralizedResponse> {
-    const options = Object.assign(
-      {
-        method: "POST"
-      },
-      this.fetchOptions,
-      fetchOptions
-    );
-
-    try {
-      return helpers.makeRequest(this.url, options);
-    } catch (e) {
-      throw e;
-    }
+    axiosOptions?: axiosTypes.AxiosRequestConfig
+  ): Promise<axiosTypes.AxiosResponse> {
+    return axios.post(this.endpoint, payload, axiosOptions);
   }
 
-  async update(
+  update(
     id: ID,
     payload: any,
-    fetchOptions?: RequestInit
-  ): Promise<DenmoralizedResponse> {
-    const options = Object.assign(
-      {
-        method: "PUT"
-      },
-      this.fetchOptions,
-      fetchOptions
-    );
+    axiosOptions?: axiosTypes.AxiosRequestConfig
+  ): Promise<axiosTypes.AxiosResponse> {
+    const url: string = `${this.endpoint}/${id}`;
 
-    try {
-      const url: string = `${this.url}/${id}`;
-
-      return helpers.makeRequest(url, options);
-    } catch (e) {
-      throw e;
-    }
+    return this.axios.put(url, payload, axiosOptions);
   }
 
-  delete(id: ID, fetchOptions?: RequestInit): Promise<Response> {
-    const options = Object.assign(
-      {
-        method: "DELETE"
-      },
-      this.fetchOptions,
-      fetchOptions
-    );
-    const url: string = `${this.url}/${id}`;
+  delete(
+    id: ID,
+    axiosOptions?: axiosTypes.AxiosRequestConfig
+  ): Promise<axiosTypes.AxiosResponse> {
+    const url: string = `${this.endpoint}/${id}`;
 
-    return fetch(url, options);
+    return axios.delete(url, axiosOptions);
   }
 }

@@ -9,8 +9,12 @@ export default {
     name: "JSONApiClient",
     file: path.join(__dirname, "dist", "index.js"),
     format: "umd",
-    sourcemap: true
+    sourcemap: true,
+    globals: {
+      axios: "axios"
+    }
   },
+  external: ["axios"],
   plugins: [
     typescript({
       tsconfigOverride: {

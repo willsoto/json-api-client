@@ -1,7 +1,7 @@
+import * as axiosTypes from "axios";
+
 export interface Options {
-  baseURL?: string;
-  basePath: string;
-  fetchOptions?: RequestInit;
+  axiosOptions?: axiosTypes.AxiosRequestConfig;
 }
 
 export interface DenmoralizedResponseObject {

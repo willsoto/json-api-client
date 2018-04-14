@@ -123,13 +123,3 @@ export const marshal = function(
     };
   }
 };
-
-export const makeRequest = async function(
-  url: string,
-  fetchOptions: RequestInit
-) {
-  const response = await fetch(url, fetchOptions);
-  const json: JSONAPI.DocWithData = await response.json();
-
-  return denormalize(json);
-};
