@@ -75,3 +75,11 @@ const response = client
   })
   .get('1');
 ```
+
+## TODO
+
+* [ ] [Inclusion of Related Resources](http://jsonapi.org/format/#fetching-includes) (https://github.com/willsoto/json-api-client/issues/1)
+* [ ] [Sparse Fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets) (https://github.com/willsoto/json-api-client/issues/2)
+* [ ] [Sorting](http://jsonapi.org/format/#fetching-sorting) (https://github.com/willsoto/json-api-client/issues/3)
+* [ ] [Pagination](http://jsonapi.org/format/#fetching-pagination) (https://github.com/willsoto/json-api-client/issues/4)
+* [ ] [Filtering](http://jsonapi.org/format/#fetching-filtering) (https://github.com/willsoto/json-api-client/issues/5)
