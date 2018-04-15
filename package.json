@@ -20,7 +20,7 @@
     "test:debug": "mocha --inspect-brk --opts mocha.opts",
     "lint": "tslint -c tslint.json --fix --format stylish 'src/**/*.ts'",
     "release": "standard-version --sign && yarn run build",
-    "postrelease": "git push --follow-tags origin master && npm publish"
+    "postrelease": "git push && npm publish --access public"
   },
   "devDependencies": {
     "@types/chai": "^4.1.2",
