@@ -1,7 +1,14 @@
 import * as axiosTypes from 'axios';
 
+import { JSONApiModel } from './model';
+
 export interface IOptions {
-  axiosOptions?: axiosTypes.AxiosRequestConfig;
+  axiosConfig?: axiosTypes.AxiosRequestConfig;
+}
+
+export interface IJSONApiModel {
+  __type: string;
+  __endpoint: string;
 }
 
 export interface IDenmoralizedResponseObject {
@@ -19,3 +26,5 @@ export interface ICallbackArgs {
 }
 
 export type ID = string;
+
+export type Model = typeof JSONApiModel | IJSONApiModel;

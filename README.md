@@ -50,7 +50,7 @@ client
 
 ```js
 const client = new JSONApiClient({
-  axiosOptions: {
+  axiosConfig: {
     /* See https://github.com/axios/axios#request-config */
   }
 });
@@ -74,6 +74,26 @@ const response = client
     __endpoint: '/authors'
   })
   .get('1');
+```
+
+#### Inclusion of Related Resources
+
+```js
+client
+  .query({
+    __endpoint: '/authors'
+  })
+  .include('articles')
+  .all();
+```
+
+```js
+client
+  .query({
+    __endpoint: '/authors'
+  })
+  .include(['articles.comments', 'tags'])
+  .all();
 ```
 
 ## TODO
