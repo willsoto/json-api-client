@@ -18,4 +18,4 @@ export interface ICallbackArgs {
   data: IDenmoralizedResponse;
 }
 
-export type ID = string | number;
+export type ID = string;
