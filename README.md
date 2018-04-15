@@ -3,5 +3,9 @@
 ## Installation
 
 ```bash
-yarn add json-api-client
+yarn add @willsoto/json-api-client
+```
+
+```bash
+npm install @willsoto/json-api-client
 ```
