@@ -1,9 +1,9 @@
-import { describe } from 'mocha';
 import { expect } from 'chai';
+import { describe } from 'mocha';
 import * as moxios from 'moxios';
 
 import { JSONApiClient } from '../src';
-import { DenmoralizedResponseObject } from '../src/interfaces';
+import { IDenmoralizedResponseObject } from '../src/interfaces';
 
 import { Article, Author, Comment } from './models';
 

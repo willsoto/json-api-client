@@ -1,10 +1,10 @@
-import { CallbackArgs } from './interfaces';
+import { ICallbackArgs } from './interfaces';
 
 export abstract class JSONApiModel {
-  static __type: string;
-  static __endpoint: string;
+  public static __type: string;
+  public static __endpoint: string;
 
-  constructor(args: CallbackArgs) {
+  constructor(args: ICallbackArgs) {
     Object.assign(this, args.data);
   }
 }

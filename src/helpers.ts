@@ -1,14 +1,14 @@
 import * as JSONAPI from 'jsonapi-typescript';
 
 import {
-  Options,
-  DenmoralizedResponse,
-  DenmoralizedResponseObject
+  IDenmoralizedResponse,
+  IDenmoralizedResponseObject,
+  IOptions
 } from './interfaces';
 
 import { JSONApiModel } from './model';
 
-const subclasses = new Map<string, Function>();
+const subclasses = new Map<string, (...args: any[]) => any>();
 
 export const registerSubclass = function(
   type: string,
@@ -19,7 +19,7 @@ export const registerSubclass = function(
 
 export const denormalize = function(
   response: JSONAPI.DocWithData
-): DenmoralizedResponse {
+): IDenmoralizedResponse {
   const { data, included } = response;
 
   if (Array.isArray(data)) {
@@ -58,8 +58,12 @@ export const processRelationships = function(
   obj: any,
   relationships: JSONAPI.RelationshipsObject,
   included: JSONAPI.Included
-): DenmoralizedResponse {
-  for (let relationshipName in relationships) {
+): IDenmoralizedResponse {
+  for (const relationshipName in relationships) {
+    if (!relationships.hasOwnProperty(relationshipName)) {
+      continue;
+    }
+
     const relationship = relationships[relationshipName];
 
     if (!('data' in relationship) || !relationship.data) {
@@ -109,7 +113,7 @@ const createRelationship = function(
 
 export const marshal = function(
   entity: JSONAPI.ResourceObject | JSONAPI.ResourceIdentifierObject
-): DenmoralizedResponseObject | typeof JSONApiModel {
+): IDenmoralizedResponseObject | typeof JSONApiModel {
   const { type } = entity;
 
   let attributes: JSONAPI.AttributesObject = {};
@@ -122,11 +126,11 @@ export const marshal = function(
 
   if (cb) {
     return cb({
-      type: type,
       data: {
         id: entity.id,
         ...attributes
-      }
+      },
+      type
     });
   } else {
     return {

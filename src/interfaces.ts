@@ -1,21 +1,21 @@
 import * as axiosTypes from 'axios';
 
-export interface Options {
+export interface IOptions {
   axiosOptions?: axiosTypes.AxiosRequestConfig;
 }
 
-export interface DenmoralizedResponseObject {
+export interface IDenmoralizedResponseObject {
   id?: string | number;
   [key: string]: any;
 }
 
-export type DenmoralizedResponse =
-  | DenmoralizedResponseObject
-  | DenmoralizedResponseObject[];
+export type IDenmoralizedResponse =
+  | IDenmoralizedResponseObject
+  | IDenmoralizedResponseObject[];
 
-export interface CallbackArgs {
+export interface ICallbackArgs {
   type: string;
-  data: DenmoralizedResponse;
+  data: IDenmoralizedResponse;
 }
 
 export type ID = string | number;

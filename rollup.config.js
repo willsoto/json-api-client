@@ -2,6 +2,7 @@ import path from 'path';
 
 import typescript from 'rollup-plugin-typescript2';
 import filesize from 'rollup-plugin-filesize';
+import tslint from 'rollup-plugin-tslint';
 
 import pkg from './package.json';
 
@@ -30,6 +31,7 @@ export default {
   }),
   external: ['axios'],
   plugins: [
+    tslint(),
     typescript({
       tsconfigOverride: {
         compilerOptions: {

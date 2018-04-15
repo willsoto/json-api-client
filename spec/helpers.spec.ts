@@ -1,6 +1,6 @@
-import { describe } from 'mocha';
 import { expect } from 'chai';
 import * as glob from 'glob';
+import { describe } from 'mocha';
 
 import * as helpers from '../src/helpers';
 

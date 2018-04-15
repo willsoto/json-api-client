@@ -1,16 +1,17 @@
-import * as JSONAPI from 'jsonapi-typescript';
-
-import { Options, CallbackArgs, ID } from './interfaces';
-import * as helpers from './helpers';
-import { JSONApiModel } from './model';
 import axios from 'axios';
 import * as axiosTypes from 'axios';
+import * as JSONAPI from 'jsonapi-typescript';
+
+import * as helpers from './helpers';
+import { ICallbackArgs, ID, IOptions } from './interfaces';
+import { JSONApiModel } from './model';
 
 export class JSONApiClient {
-  private endpoint: string = '/';
   public axios: axiosTypes.AxiosInstance;
 
-  constructor(private options: Options) {
+  private endpoint: string = '/';
+
+  constructor(private options: IOptions) {
     const axiosOptions = Object.assign(
       {},
       {
@@ -35,23 +36,26 @@ export class JSONApiClient {
     );
   }
 
-  register(type: string, cb: (arg: CallbackArgs) => any): JSONApiClient {
+  public register(
+    type: string,
+    cb: (arg: ICallbackArgs) => any
+  ): JSONApiClient {
     helpers.registerSubclass(type, cb);
     return this;
   }
 
-  query(model: typeof JSONApiModel): JSONApiClient {
+  public query(model: typeof JSONApiModel): JSONApiClient {
     this.endpoint = model.__endpoint;
     return this;
   }
 
-  all(
+  public all(
     axiosOptions?: axiosTypes.AxiosRequestConfig
   ): Promise<axiosTypes.AxiosResponse> {
     return this.axios.get(this.endpoint, axiosOptions);
   }
 
-  get(
+  public get(
     id: ID,
     axiosOptions?: axiosTypes.AxiosRequestConfig
   ): Promise<axiosTypes.AxiosResponse> {
@@ -60,14 +64,14 @@ export class JSONApiClient {
     return this.axios.get(url, axiosOptions);
   }
 
-  create(
+  public create(
     payload: any,
     axiosOptions?: axiosTypes.AxiosRequestConfig
   ): Promise<axiosTypes.AxiosResponse> {
     return axios.post(this.endpoint, payload, axiosOptions);
   }
 
-  update(
+  public update(
     id: ID,
     payload: any,
     axiosOptions?: axiosTypes.AxiosRequestConfig
@@ -77,7 +81,7 @@ export class JSONApiClient {
     return this.axios.patch(url, payload, axiosOptions);
   }
 
-  delete(
+  public delete(
     id: ID,
     axiosOptions?: axiosTypes.AxiosRequestConfig
   ): Promise<axiosTypes.AxiosResponse> {
