@@ -1,6 +1,7 @@
 import * as JSONAPI from 'jsonapi-typescript';
 
 import {
+  ICallbackArgs,
   IDenmoralizedResponse,
   IDenmoralizedResponseObject,
   IOptions
@@ -8,7 +9,7 @@ import {
 
 import { JSONApiModel } from './model';
 
-const subclasses = new Map<string, (...args: any[]) => any>();
+const subclasses = new Map<string, (args: ICallbackArgs) => any>();
 
 export const registerSubclass = function(
   type: string,
