@@ -1,5 +1,5 @@
 {
-  "name": "json-api-client",
+  "name": "@willsoto/json-api-client",
   "version": "0.1.0",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
@@ -9,13 +9,18 @@
     "url": "https://github.com/willsoto"
   },
   "license": "Apache-2.0",
+  "files": [
+    "src/",
+    "dist/"
+  ],
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "rollup -c",
     "test": "mocha --opts mocha.opts",
     "test:debug": "mocha --inspect-brk --opts mocha.opts",
     "lint": "tslint -c tslint.json --fix --format stylish 'src/**/*.ts'",
-    "release": "standard-version"
+    "release": "standard-version --sign && yarn run build",
+    "postrelease": "git push --follow-tags origin master && npm publish"
   },
   "devDependencies": {
     "@types/chai": "^4.1.2",
