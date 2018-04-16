@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { describe } from 'mocha';
 import * as glob from 'glob';
+import { describe } from 'mocha';
 import * as moxios from 'moxios';
 
 import { JSONApiClient } from '../src';
