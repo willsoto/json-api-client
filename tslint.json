@@ -7,7 +7,9 @@
     "quotemark": [true, "single", "avoid-escape"],
     "only-arrow-functions": false,
     "no-var-requires": false,
-    "variable-name": [false]
+    "variable-name": [false],
+    "object-literal-sort-keys": false,
+    "object-literal-key-quotes": [true, "as-needed"]
   },
   "rulesDirectory": []
 }
