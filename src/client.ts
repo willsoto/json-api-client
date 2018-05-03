@@ -135,6 +135,7 @@ export class JSONApiClient {
 
     if (this.__include.length > 0) {
       params.include = this.__include.join(',');
+      this.__include = [];
     }
 
     return params;
