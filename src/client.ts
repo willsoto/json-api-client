@@ -100,7 +100,7 @@ export class JSONApiClient {
       ...config
     };
 
-    return axios.post(this.endpoint, payload, options);
+    return this.axios.post(this.endpoint, payload, options);
   }
 
   public update(
@@ -127,7 +127,7 @@ export class JSONApiClient {
       ...config
     };
 
-    return axios.delete(url, options);
+    return this.axios.delete(url, options);
   }
 
   get params(): any {
